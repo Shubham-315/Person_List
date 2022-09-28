@@ -1,6 +1,5 @@
 import { useState } from "react"
 import axios from "axios"
-import { useEffect } from "react"
 export default function Contact() {
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
@@ -14,14 +13,8 @@ export default function Contact() {
         })
         reader.readAsDataURL(e.target.files[0])
     };
-    // const persons = (() => {
-    //     const items = localStorage.getItem('person');
-    //     return items === null
-    //         ? []
-    //         : JSON.parse(items);
-    // })();
     const saveData = async () => {
-        if (name !== "" && email !== "" && dob !== "" && country != "" && avatar !== "") {
+        if (name !== "" && email !== "" && dob !== "" && country !== "" && avatar !== "") {
             axios(
                 {
                     headers: {
@@ -92,7 +85,6 @@ export default function Contact() {
                                 className="form-control"
                                 placeholder="name@example.com"
                                 onChange={onImageChange}
-                            // id="myFileInput"
                             />
                         </div>
                         <div className="mb-3">
@@ -106,7 +98,7 @@ export default function Contact() {
                                 }}
                             />
                         </div>
-                        <button onClick={() => { saveData() }}>Create</button>
+                        <button className="btn btn-success" onClick={() => { saveData() }}>Create</button>
                     </div>
                 </div>
             </div>

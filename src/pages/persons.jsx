@@ -8,7 +8,7 @@ export default function Persons() {
     const [dob, setDob] = useState("")
     const [avatar, setAvatar] = useState()
     const [country, setCountry] = useState("")
-    const [getId,setId] = useState("");
+    const [getId, setId] = useState("");
     const onImageChange = (e) => {
         const reader = new FileReader;
         reader.addEventListener("load", () => {
@@ -20,7 +20,7 @@ export default function Persons() {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const updateData = async () => {
-        if (name !== "" && email !== "" && dob !== "" && country != "" && avatar !== "") {
+        if (name !== "" && email !== "" && dob !== "" && country !== "" && avatar !== "") {
             await axios(
                 {
                     headers: {
@@ -47,32 +47,17 @@ export default function Persons() {
         }
     }
     useEffect(() => {
-        // const request = axios.CancelToken.source()
-        // const callApi = async() => {
-        //     try {
-        //         const response = await axios.get({
-        //         headers: {
-        //             'Content-Type': 'application/json'
-        //         },
-        //         cancelToken: request.token,
-        //         method: "GET",
-        //         url: "https://crudcrud.com/api/53bf2e24d5d74491b9884b18d024418b/person"
-        //     });
-        //         console.log(response);
-        //       } catch (error) {
-        //         console.error(error);
-        //       }
-        // }
-        
-        axios(
-            {
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                // cancelToken: request.token,
-                method: "GET",
-                url: "https://crudcrud.com/api/53bf2e24d5d74491b9884b18d024418b/person"
-            })
+        const request = axios.CancelToken.source();
+        const callApi = async () => {
+            axios(
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    cancelToken: request.token,
+                    method: "GET",
+                    url: "https://crudcrud.com/api/53bf2e24d5d74491b9884b18d024418b/person"
+                })
             .then(res => {
                 const person = res.data
                 setPersonData(person)
@@ -80,9 +65,10 @@ export default function Persons() {
             .catch((error) => {
                 console.log(error);
             })
-            // return () => request.cancel()
+        }
+        callApi();
+        return () => request.cancel()
     }, [])
-    // personData !== undefined?console.log("get",personData):console.log("hello")
 
     return (
         <>
@@ -97,7 +83,7 @@ export default function Persons() {
                                             <div className="card" id={data.id}>
                                                 <img src={data.avatar} className="card-img-top" alt="..." />
                                                 <div className="card-body">
-                                                    <h5 className="card-title" onClick={() => { setShow(true);setId(data.id) }}>{data.name}</h5>
+                                                    <h5 className="card-title" onClick={() => { setShow(true); setId(data.id) }}>{data.name}</h5>
                                                     <p className="card-text">{data.email}</p>
                                                     <p className="card-text">{data.dob}</p>
                                                     <p className="card-text">{data.country}</p>
@@ -156,7 +142,6 @@ export default function Persons() {
                                     className="form-control"
                                     placeholder="name@example.com"
                                     onChange={onImageChange}
-                                // id="myFileInput"
                                 />
                             </div>
                             <div className="mb-3">
