@@ -6,7 +6,7 @@ export default function Root() {
             <div className="container-fluid">
                 <nav>
                     <ul className="nav p-3">
-                        <li className="nav-item">
+                        <li className="nav-item mr-3">
                             <Link className="btn btn-primary" aria-current="page" to={`create`}>Create New Person</Link>
                         </li>
                         <li className="nav-item">
